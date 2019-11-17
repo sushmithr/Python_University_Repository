@@ -220,11 +220,11 @@ class Major:
         """ Computes the list of completed courses, set of still required courses, and set 
             of still required electives for a student of a particular major 
         """
-        completed_courses = [course for course in course_grades if not course_grades[course] > 'C']
+        completed_courses = {course for course in course_grades if not course_grades[course] > 'C'}
         required_courses = self._required_courses - set(completed_courses)
         required_electives = None
 
-        if set(completed_courses).isdisjoint(self._elective_courses):
+        if completed_courses.isdisjoint(self._elective_courses):
             required_electives = self._elective_courses
 
         return self._name, completed_courses, required_courses, required_electives
@@ -285,6 +285,6 @@ if __name__ == '__main__':
     try:
         UniversityRepository(r"C:\Sushmith Ramesh\SSW_810_Python\Py_Uni_Repo_Proj\Python_University_Repository")
     except ValueError as e:
-        print(f"ERROR: \n{e}")
+        print(f"ERROR : {e}")
     except FileNotFoundError as e:
-        print(f"ERROR: \n{e}")
+        print(f"ERROR : {e}")
